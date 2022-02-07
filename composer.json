@@ -1,0 +1,20 @@
+{
+    "name": "jtrw/voiptime-cleint",
+    "description": "Client for Voiptime service",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nil Borodulia",
+            "email": "nil.borodulia@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jtrw\\Voiptime\\": "src"
+        }
+    }
+}
