@@ -1,4 +1,5 @@
 <?php
+namespace Jtrw\Voiptime;
 
 class Voiptime
 {
