@@ -2,6 +2,11 @@
 
 namespace Jtrw\Voiptime;
 
+use Jtrw\Voiptime\Client\VoipClientAddress;
+use Jtrw\Voiptime\Client\VoipClientEmail;
+use Jtrw\Voiptime\Client\VoipClientFields;
+use Jtrw\Voiptime\Client\VoipClientPhone;
+
 class VoipClient
 {
     private int $clientRoleId;
@@ -9,7 +14,7 @@ class VoipClient
     private string $timeZone;
     private VoipClientFields $fields;
     private array $clientPhones;
-    private array $address;
+    private array $addresses;
     private array $emails;
     
     /**
