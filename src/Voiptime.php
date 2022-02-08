@@ -5,7 +5,6 @@ namespace Jtrw\Voiptime;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use JsonException;
-use RuntimeException;
 
 class Voiptime
 {
@@ -15,6 +14,10 @@ class Voiptime
     private string $password;
     private Client $httpClient;
     
+    /**
+     * @param string $login
+     * @param string $password
+     */
     public function __construct(string $login, string $password)
     {
         $this->login = $login;
@@ -27,6 +30,13 @@ class Voiptime
         );
     } // end __construct
     
+    /**
+     * @param bool $recovery
+     * @param VoipClient ...$clients
+     * @return array
+     * @throws JsonException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function createClients(bool $recovery, VoipClient ...$clients): array
     {
         $data['recovery'] = $recovery;
@@ -40,7 +50,7 @@ class Voiptime
         $headers = [
             'Content-Type' => 'application/json',
         ];
-        
+
         $httpResponse = $this->httpClient->request(
             'POST',
             $url,
@@ -54,7 +64,16 @@ class Voiptime
         return $this->getPreparedResponse($httpResponse);
     } // end createClients
     
-    public function addClientToTacsByCampaignId(int $campaignID, int $maxCallCount, bool $disableDuplicatePhonesValidation, array $clients)
+    /**
+     * @param int $campaignID
+     * @param int $maxCallCount
+     * @param bool $disableDuplicatePhonesValidation
+     * @param array $clients
+     * @return array
+     * @throws JsonException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addClientToTacsByCampaignId(int $campaignID, int $maxCallCount, bool $disableDuplicatePhonesValidation, array $clients): array
     {
         $url = static::API_URL."/tacs/campaigns/{$campaignID}/exec.do";
         
@@ -79,23 +98,18 @@ class Voiptime
         );
     
         return $this->getPreparedResponse($httpResponse);
-    }
+    } // end addClientToTacsByCampaignId
     
+    /**
+     * @param ResponseInterface $httpResponse
+     * @return array
+     * @throws JsonException
+     */
     protected function getPreparedResponse(ResponseInterface $httpResponse): array
     {
         $responseBody = $httpResponse->getBody()->getContents();
         
-        try {
-            $response = json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            $response = null;
-        }
-        
-        if (!$response) {
-            throw new RuntimeException($responseBody);
-        }
-        
-        return $response;
+        return json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
     } // end getPreparedResponse
     
 }

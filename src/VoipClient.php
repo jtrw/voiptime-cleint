@@ -44,8 +44,11 @@ class VoipClient
         $this->clientPhones = $clientPhones;
         $this->addresses = $addresses;
         $this->emails = $emails;
-    }
+    } // end __construct
     
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         $client = array(
@@ -59,15 +62,16 @@ class VoipClient
         foreach ($this->clientPhones as $clientPhone) {
             $client['phones'][] = $clientPhone->toArray();
         }
-        
+        $client['addresses'] = [];
         foreach ($this->addresses as $address) {
             $client['addresses'][] = $address->toArray();
         }
-        
+    
+        $client['emails'] = [];
         foreach ($this->emails as $email) {
             $client['emails'][] = $email->toArray();
         }
         
         return $client;
-    }
+    } // end toArray
 }
