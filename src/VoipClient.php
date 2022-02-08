@@ -67,5 +67,7 @@ class VoipClient
         foreach ($this->emails as $email) {
             $client['emails'][] = $email->toArray();
         }
+        
+        return $client;
     }
 }

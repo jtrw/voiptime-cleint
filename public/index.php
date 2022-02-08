@@ -1,9 +1,16 @@
 <?php
+
+require 'vendor/autoload.php';
 //'/clients/exec.do';
+use Jtrw\Voiptime\Voiptime;
+use Jtrw\Voiptime\VoipClient;
+use Jtrw\Voiptime\Client\VoipClientFields;
+use Jtrw\Voiptime\Client\VoipClientPhone;
+
 $voip = new Voiptime($login, $passwod);
 
 
-$voip->createClients(
+$result = $voip->createClients(
     true,
     new VoipClient(
         1,
@@ -17,3 +24,5 @@ $voip->createClients(
         [new VoipClientPhone('380991117888', 'MOB', true)]
     )
 );
+
+print_r($result);
