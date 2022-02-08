@@ -10,7 +10,10 @@
         }
     ],
     "require": {
-        "php" : ">=7.4"
+        "php" : ">=7.4",
+        "ramsey/uuid": "^4.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

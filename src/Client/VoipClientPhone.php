@@ -8,6 +8,11 @@ class VoipClientPhone
     private string $type;
     private bool $active;
     
+    /**
+     * @param string $phoneNumber
+     * @param string $type
+     * @param bool $active
+     */
     public function __construct(string $phoneNumber, string $type, bool $active)
     {
         $this->phoneNumber = $phoneNumber;
@@ -15,6 +20,9 @@ class VoipClientPhone
         $this->active = $active;
     }
     
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
