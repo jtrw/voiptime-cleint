@@ -6,6 +6,7 @@ use Jtrw\Voiptime\Client\VoipClientAddress;
 use Jtrw\Voiptime\Client\VoipClientEmail;
 use Jtrw\Voiptime\Client\VoipClientFields;
 use Jtrw\Voiptime\Client\VoipClientPhone;
+use Ramsey\Uuid\Uuid;
 
 class VoipClient
 {
@@ -48,7 +49,7 @@ class VoipClient
     public function toArray(): array
     {
         $client = array(
-            "uuid"         => uniqid(),
+            "uuid"         => Uuid::uuid6()->toString(),
             "clientRoleId" => $this->clientRoleId,
             "type"         => $this->type,
             "timeZone"     => stripslashes($this->timeZone),
