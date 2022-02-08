@@ -26,3 +26,15 @@ $result = $voip->createClients(
 );
 
 print_r($result);
+$clients = [
+    [
+        'clientIdentifiers' => [
+            'id' => $clientID
+        ],
+    ]
+];
+$voip->addClientToTacsByCampaignId(
+    108,
+    10,
+    false,
+    $clients);

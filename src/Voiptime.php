@@ -1,4 +1,5 @@
 <?php
+
 namespace Jtrw\Voiptime;
 
 use GuzzleHttp\Client;
@@ -37,40 +38,63 @@ class Voiptime
         $url = static::API_URL.'/clients/exec.do';
         
         $headers = [
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ];
-    
+        
         $httpResponse = $this->httpClient->request(
             'POST',
             $url,
             [
-                'auth' => [$this->login, $this->password],
+                'auth'    => [$this->login, $this->password],
+                'json'    => $data,
+                'headers' => $headers
+            ]
+        );
+        
+        return $this->getPreparedResponse($httpResponse);
+    } // end createClients
+    
+    public function addClientToTacsByCampaignId(int $campaignID, int $maxCallCount, bool $disableDuplicatePhonesValidation, array $clients)
+    {
+        $url = static::API_URL."/tacs/campaigns/{$campaignID}/exec.do";
+        
+        $data = [
+            'maxCallCount'                     => $maxCallCount,
+            'disableDuplicatePhonesValidation' => $disableDuplicatePhonesValidation,
+            'clients'                          => $clients
+        ];
+        
+        $headers = [
+            'Content-Type' => 'application/json',
+        ];
+        
+        $httpResponse = $this->httpClient->request(
+            'POST',
+            $url,
+            [
+                'auth'    => [$this->login, $this->password],
                 'json'    => $data,
                 'headers' => $headers
             ]
         );
     
         return $this->getPreparedResponse($httpResponse);
-    } // end createClients
+    }
     
     protected function getPreparedResponse(ResponseInterface $httpResponse): array
     {
         $responseBody = $httpResponse->getBody()->getContents();
-    
-        try
-        {
+        
+        try {
             $response = json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
-        }
-        catch (JsonException $e)
-        {
+        } catch (JsonException $e) {
             $response = null;
         }
-    
-        if (!$response)
-        {
+        
+        if (!$response) {
             throw new RuntimeException($responseBody);
         }
-    
+        
         return $response;
     } // end getPreparedResponse
     
