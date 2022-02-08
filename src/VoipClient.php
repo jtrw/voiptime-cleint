@@ -51,13 +51,13 @@ class VoipClient
      */
     public function toArray(): array
     {
-        $client = array(
+        $client = [
             "uuid"         => Uuid::uuid6()->toString(),
             "clientRoleId" => $this->clientRoleId,
             "type"         => $this->type,
             "timeZone"     => stripslashes($this->timeZone),
             "fields"       => $this->fields->toArray(),
-        );
+        ];
         
         foreach ($this->clientPhones as $clientPhone) {
             $client['phones'][] = $clientPhone->toArray();
