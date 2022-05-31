@@ -2,7 +2,7 @@
 
 namespace Jtrw\Voiptime;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use JsonException;
 
@@ -12,22 +12,19 @@ class Voiptime
     
     private string $login;
     private string $password;
-    private Client $httpClient;
+    private ClientInterface $httpClient;
     
     /**
+     * @param ClientInterface $httpClient
      * @param string $login
      * @param string $password
      */
-    public function __construct(string $login, string $password)
+    public function __construct(ClientInterface $httpClient, string $login, string $password)
     {
         $this->login = $login;
         $this->password = $password;
         
-        $this->httpClient = new Client(
-            [
-                'http_errors' => false,
-            ]
-        );
+        $this->httpClient = $httpClient;
     } // end __construct
     
     /**

@@ -2,12 +2,17 @@
 
 require 'vendor/autoload.php';
 
+use GuzzleHttp\Client;
 use Jtrw\Voiptime\Voiptime;
 use Jtrw\Voiptime\VoipClient;
 use Jtrw\Voiptime\Client\VoipClientFields;
 use Jtrw\Voiptime\Client\VoipClientPhone;
 
-$voip = new Voiptime($login, $password);
+$voip = new Voiptime(
+    new Client(['http_errors' => false]),
+    $login,
+    $password
+);
 
 
 $result = $voip->createClients(
