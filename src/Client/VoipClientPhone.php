@@ -4,6 +4,11 @@ namespace Jtrw\Voiptime\Client;
 
 class VoipClientPhone
 {
+    public const PHONE_TYPE_MOBILE = "MOB";
+    public const PHONE_TYPE_HOME   = "HOME";
+    public const PHONE_TYPE_WORK   = "WORK";
+    public const PHONE_TYPE_FAX    = "FAX";
+    
     private string $phoneNumber;
     private string $type;
     private bool $active;
