@@ -45,7 +45,7 @@ $result = $voip->createClients(
             "firstname" => "test",
             "lastname"  => "Test",
         ]),
-        [new VoipClientPhone('380991117978', 'MOB', true)]
+        [new VoipClientPhone('380991117978', VoipClientPhone::PHONE_TYPE_MOBILE, true)]
     )
 );
 
